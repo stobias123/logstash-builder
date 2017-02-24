@@ -1,6 +1,6 @@
 FROM openshift/base-centos7
 
-MAINTAINER Lorenz Bischof <bischof@puzzle.ch>
+MAINTAINER Steven Tobias <stobias123@gmail.com>
 
 ENV LOGSTASH_VERSION=5.2.1 \
     ELASTICSEARCH_SERVICE_HOST=elasticsearch
@@ -8,7 +8,7 @@ ENV LOGSTASH_VERSION=5.2.1 \
 LABEL io.k8s.description="Logstash" \
       io.k8s.display-name="logstash ${LOGSTASH_VERSION}" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="logstash,${LOGSTASH_VERSION},elk"
+      io.openshift.tags="logstash,${LOGSTASH_VERSION},elk,builder"
 
 RUN \
   rpm --rebuilddb && yum clean all && \
@@ -25,7 +25,9 @@ COPY ./.s2i/bin/ /usr/libexec/s2i
 # Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:1001 /opt/app-root
 
+#syslog
 EXPOSE 5014
+#filebeat
 EXPOSE 5044
 
  # This default user is created in the openshift/base-centos7 image
