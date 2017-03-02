@@ -15,3 +15,5 @@ fi
 
 echo "---> Installing application source..."
 cp -Rfv /tmp/src/. ./
+echo "Showing current directory"
+ls -al ./
