@@ -23,7 +23,7 @@ RUN \
 COPY ./.s2i/bin/ /usr/libexec/s2i
 
 # Make our logs directory
-RUN mkdir /opt/app-root/logs
+RUN mkdir /opt/app-root/logs && chmod 777 /opt/app-root/logs /opt/app-root/data
 
 # Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:1001 /opt/app-root
